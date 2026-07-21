@@ -1,0 +1,27 @@
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="BRALIM home">
+      <img src="/assets/img/logo.svg" alt="BRALIM logo" class="brand-mark" width="42" height="42" />
+      <span class="brand-text">
+        <span class="brand-name">BRALIM</span>
+        <span class="brand-tag">Ugandan Community · Netherlands</span>
+      </span>
+    </a>
+
+    <nav class="main-nav" aria-label="Primary">
+      <ul class="nav-list">
+        {{ NAV }}
+      </ul>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="mobile-nav" id="mobileNav" hidden>
+    <ul class="nav-list">
+      {{ NAV }}
+    </ul>
+  </div>
+</header>

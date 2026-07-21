@@ -1,0 +1,26 @@
+{
+  "name": "BRALIM",
+  "fullName": "BRALIM — Ugandan Community in the Netherlands",
+  "domain": "bralim.org",
+  "description": "BRALIM is a non-profit community organisation bringing together Ugandans living in the Netherlands to celebrate heritage, strengthen community and create opportunities to thrive.",
+  "email": "info@bralim.org",
+  "phone": "+31 (0)00 000 0000",
+  "address": "Address placeholder, Netherlands",
+  "nav": [
+    { "label": "Home", "href": "/" },
+    { "label": "About Us", "href": "/about.html" },
+    { "label": "Programs", "href": "/programs.html" },
+    { "label": "Membership", "href": "/membership.html" },
+    { "label": "Events", "href": "/events.html" },
+    { "label": "News", "href": "/news.html" },
+    { "label": "Get Involved", "href": "/get-involved.html" },
+    { "label": "Contact", "href": "/contact.html" },
+    { "label": "Donate", "href": "/donate.html", "cta": true }
+  ],
+  "social": {
+    "facebook": "#",
+    "instagram": "#",
+    "linkedin": "#",
+    "youtube": "#"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "bralim-website",
+  "version": "1.0.0",
+  "description": "BRALIM — Ugandan Community in the Netherlands. Static website (GitHub Pages).",
+  "private": true,
+  "scripts": {
+    "gen:programs": "node scripts/gen-programs.js",
+    "build": "node scripts/gen-programs.js && node build.js && node scripts/gen-seo.js",
+    "serve": "node scripts/serve.js"
+  },
+  "license": "MIT"
+}

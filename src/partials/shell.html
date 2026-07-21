@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ TITLE }} — {{ name }}</title>
+  <meta name="description" content="{{ DESCRIPTION }}" />
+  <link rel="canonical" href="{{ CANONICAL }}" />
+
+  <!-- Open Graph / social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="{{ name }}" />
+  <meta property="og:title" content="{{ OG_TITLE }}" />
+  <meta property="og:description" content="{{ DESCRIPTION }}" />
+  <meta property="og:url" content="{{ CANONICAL }}" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="theme-color" content="#0A3D2C" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/assets/css/style.css" />
+
+  <!-- Google Analytics placeholder — replace G-XXXXXXXXXX with your Measurement ID
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+  -->
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "NGO",
+    "name": "BRALIM",
+    "url": "https://{{ domain }}",
+    "email": "{{ email }}",
+    "description": "{{ description }}",
+    "areaServed": "Netherlands"
+  }
+  </script>
+</head>
+<body data-page="{{ slug }}">
+  <a class="skip-link" href="#main">Skip to content</a>
+  {{> header }}
+  <main id="main">
+    {{ CONTENT }}
+  </main>
+  {{> footer }}
+  <div class="cookie-banner" id="cookieBanner" hidden>
+    <p>We use essential cookies to make BRALIM work. With your consent we also use analytics cookies to improve the site. See our <a href="/cookies.html">Cookie Policy</a>.</p>
+    <div class="cookie-actions">
+      <button class="btn btn-ghost" data-cookie="decline">Decline</button>
+      <button class="btn btn-gold" data-cookie="accept">Accept</button>
+    </div>
+  </div>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

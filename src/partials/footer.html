@@ -1,0 +1,68 @@
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand brand--footer" href="/">
+        <img src="/assets/img/logo.svg" alt="BRALIM logo" width="40" height="40" />
+        <span class="brand-name">BRALIM</span>
+      </a>
+      <p>Bringing together Ugandans living in the Netherlands — to belong, to preserve our heritage, and to thrive together.</p>
+      <div class="social">
+        <a href="{{ social.facebook }}" aria-label="Facebook" class="social-link">Facebook</a>
+        <a href="{{ social.instagram }}" aria-label="Instagram" class="social-link">Instagram</a>
+        <a href="{{ social.linkedin }}" aria-label="LinkedIn" class="social-link">LinkedIn</a>
+        <a href="{{ social.youtube }}" aria-label="YouTube" class="social-link">YouTube</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h3>Explore</h3>
+      <ul>
+        <li><a href="/about.html">About Us</a></li>
+        <li><a href="/programs.html">Our Programs</a></li>
+        <li><a href="/events.html">Events</a></li>
+        <li><a href="/news.html">News</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3>Take Part</h3>
+      <ul>
+        <li><a href="/membership.html">Become a Member</a></li>
+        <li><a href="/get-involved.html">Volunteer</a></li>
+        <li><a href="/get-involved.html">Partner With Us</a></li>
+        <li><a href="/donate.html">Donate</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3>Contact</h3>
+      <ul class="footer-contact">
+        <li><a href="mailto:{{ email }}">{{ email }}</a></li>
+        <li>{{ phone }}</li>
+        <li>{{ address }}</li>
+      </ul>
+    </div>
+
+    <div class="footer-col footer-news">
+      <h3>Newsletter</h3>
+      <p>Community news, events and stories — straight to your inbox.</p>
+      <form class="newsletter" data-form="newsletter" action="#" method="post" novalidate>
+        <label class="sr-only" for="footerEmail">Email address</label>
+        <input id="footerEmail" name="email" type="email" placeholder="you@email.com" required />
+        <button class="btn btn-gold" type="submit">Subscribe</button>
+        <p class="form-note" data-note></p>
+      </form>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <p>© {{ YEAR }} BRALIM. All rights reserved.</p>
+      <ul class="legal-links">
+        <li><a href="/privacy.html">Privacy Policy</a></li>
+        <li><a href="/cookies.html">Cookie Policy</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
