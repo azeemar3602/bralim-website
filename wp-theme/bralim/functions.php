@@ -10,9 +10,11 @@ function bralim_setup() {
 add_action( 'after_setup_theme', 'bralim_setup' );
 
 function bralim_assets() {
+    $css_path = get_template_directory() . '/assets/css/site.css';
+    $js_path  = get_template_directory() . '/assets/js/main.js';
     wp_enqueue_style( 'bralim-fonts', 'https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap', array(), null );
-    wp_enqueue_style( 'bralim-style', get_template_directory_uri() . '/assets/css/site.css', array(), '1.0' );
-    wp_enqueue_script( 'bralim-main', get_template_directory_uri() . '/assets/js/main.js', array(), '1.0', true );
+    wp_enqueue_style( 'bralim-style', get_template_directory_uri() . '/assets/css/site.css', array(), file_exists( $css_path ) ? filemtime( $css_path ) : '1.0' );
+    wp_enqueue_script( 'bralim-main', get_template_directory_uri() . '/assets/js/main.js', array(), file_exists( $js_path ) ? filemtime( $js_path ) : '1.0', true );
 }
 add_action( 'wp_enqueue_scripts', 'bralim_assets' );
 
