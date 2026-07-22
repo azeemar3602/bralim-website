@@ -53,17 +53,15 @@ add_action( 'init', 'bralim_register_event_cpt' );
 function bralim_seo_meta() {
     $description = get_bloginfo( 'description' );
     $title = wp_get_document_title();
-    $url = home_url( add_query_arg( array(), $GLOBALS['wp']->request ) );
+    $url = is_singular() ? get_permalink() : home_url( add_query_arg( array(), $GLOBALS['wp']->request ) );
 
     if ( is_singular() ) {
         global $post;
-        if ( $post ) {
-            $excerpt = has_excerpt( $post ) ? get_the_excerpt( $post ) : wp_strip_all_tags( $post->post_content );
-            $excerpt = wp_trim_words( $excerpt, 30 );
-            if ( $excerpt ) $description = $excerpt;
+        if ( $post && has_excerpt( $post ) ) {
+            $description = get_the_excerpt( $post );
         }
     }
-    $description = esc_attr( $description );
+    $description = esc_attr( wp_strip_all_tags( $description ) );
     echo "\n" . '<meta name="description" content="' . $description . '" />' . "\n";
     echo '<meta property="og:type" content="website" />' . "\n";
     echo '<meta property="og:site_name" content="BRALIM" />' . "\n";
@@ -71,7 +69,6 @@ function bralim_seo_meta() {
     echo '<meta property="og:description" content="' . $description . '" />' . "\n";
     echo '<meta property="og:url" content="' . esc_url( $url ) . '" />' . "\n";
     echo '<meta name="twitter:card" content="summary" />' . "\n";
-    echo '<link rel="canonical" href="' . esc_url( $url ) . '" />' . "\n";
 }
 add_action( 'wp_head', 'bralim_seo_meta', 1 );
 
