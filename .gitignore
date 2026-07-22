@@ -3,12 +3,9 @@ node_modules/
 Thumbs.db
 *.log
 
-# One-off WP import automation — contains admin credentials, never commit
-scripts/wp-import-pages.js
-scripts/wp-configure-site.js
-scripts/wp-fix-categories.js
-scripts/wp-fix-slugs.js
-scripts/wp-flush-permalinks.js
+# One-off WP import/admin automation — touches or embeds credentials, never commit
+scripts/wp-*.js
 scripts/prep-wp-content.js
+scripts/debug-403.js
 wp-content-import/
 bralim-site.zip
