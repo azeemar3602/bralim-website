@@ -2,3 +2,13 @@ node_modules/
 .DS_Store
 Thumbs.db
 *.log
+
+# One-off WP import automation — contains admin credentials, never commit
+scripts/wp-import-pages.js
+scripts/wp-configure-site.js
+scripts/wp-fix-categories.js
+scripts/wp-fix-slugs.js
+scripts/wp-flush-permalinks.js
+scripts/prep-wp-content.js
+wp-content-import/
+bralim-site.zip
