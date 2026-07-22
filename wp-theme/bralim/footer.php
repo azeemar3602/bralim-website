@@ -48,7 +48,8 @@
     <div class="footer-col footer-news">
       <h3>Newsletter</h3>
       <p>Community news, events and stories — straight to your inbox.</p>
-      <form class="newsletter" data-form="newsletter" action="#" method="post" novalidate>
+      <form class="newsletter" data-form="newsletter" data-endpoint="/wp-json/bralim/v1/newsletter" action="#" method="post" novalidate>
+        <div class="hp-field" aria-hidden="true"><label for="hp_web3">Website</label><input type="text" id="hp_web3" name="hp_web" tabindex="-1" autocomplete="off" /></div>
         <label class="sr-only" for="footerEmail">Email address</label>
         <input id="footerEmail" name="email" type="email" placeholder="you@email.com" required />
         <button class="btn btn-gold" type="submit">Subscribe</button>

@@ -47,6 +47,102 @@ function bralim_register_event_cpt() {
 }
 add_action( 'init', 'bralim_register_event_cpt' );
 
+/* ---------- SEO: meta description + Open Graph tags ---------- */
+function bralim_seo_meta() {
+    $description = get_bloginfo( 'description' );
+    $title = wp_get_document_title();
+    $url = home_url( add_query_arg( array(), $GLOBALS['wp']->request ) );
+
+    if ( is_singular() ) {
+        global $post;
+        if ( $post ) {
+            $excerpt = has_excerpt( $post ) ? get_the_excerpt( $post ) : wp_strip_all_tags( $post->post_content );
+            $excerpt = wp_trim_words( $excerpt, 30 );
+            if ( $excerpt ) $description = $excerpt;
+        }
+    }
+    $description = esc_attr( $description );
+    echo "\n" . '<meta name="description" content="' . $description . '" />' . "\n";
+    echo '<meta property="og:type" content="website" />' . "\n";
+    echo '<meta property="og:site_name" content="BRALIM" />' . "\n";
+    echo '<meta property="og:title" content="' . esc_attr( $title ) . '" />' . "\n";
+    echo '<meta property="og:description" content="' . $description . '" />' . "\n";
+    echo '<meta property="og:url" content="' . esc_url( $url ) . '" />' . "\n";
+    echo '<meta name="twitter:card" content="summary" />' . "\n";
+    echo '<link rel="canonical" href="' . esc_url( $url ) . '" />' . "\n";
+}
+add_action( 'wp_head', 'bralim_seo_meta', 1 );
+
+/* ---------- Forms: contact / membership / newsletter -> email, with honeypot spam guard ---------- */
+function bralim_form_is_spam( $params ) {
+    if ( ! empty( $params['hp_web'] ) ) return true; // honeypot filled = bot
+    $ip = isset( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : 'unknown';
+    $key = 'bralim_form_' . md5( $ip );
+    if ( get_transient( $key ) ) return true; // rate-limited
+    set_transient( $key, 1, 20 ); // 20s cooldown per IP
+    return false;
+}
+
+function bralim_rest_contact( $request ) {
+    $p = $request->get_params();
+    if ( bralim_form_is_spam( $p ) ) {
+        return new WP_REST_Response( array( 'ok' => false ), 200 ); // silently drop for bots
+    }
+    $name = sanitize_text_field( $p['name'] ?? '' );
+    $email = sanitize_email( $p['email'] ?? '' );
+    $subject = sanitize_text_field( $p['subject'] ?? 'Website contact form' );
+    $message = sanitize_textarea_field( $p['message'] ?? '' );
+    if ( ! $name || ! is_email( $email ) || ! $message ) {
+        return new WP_REST_Response( array( 'ok' => false, 'error' => 'missing_fields' ), 400 );
+    }
+    $body = "New contact form submission from bralim.org\n\n" .
+        "Name: $name\nEmail: $email\nSubject: $subject\n\nMessage:\n$message";
+    wp_mail( get_option( 'admin_email' ), '[BRALIM Contact] ' . $subject, $body, array( 'Reply-To: ' . $email ) );
+    return new WP_REST_Response( array( 'ok' => true ), 200 );
+}
+
+function bralim_rest_membership( $request ) {
+    $p = $request->get_params();
+    if ( bralim_form_is_spam( $p ) ) {
+        return new WP_REST_Response( array( 'ok' => false ), 200 );
+    }
+    $name = sanitize_text_field( $p['fullName'] ?? '' );
+    $email = sanitize_email( $p['email'] ?? '' );
+    $phone = sanitize_text_field( $p['phone'] ?? '' );
+    $city = sanitize_text_field( $p['city'] ?? '' );
+    $occupation = sanitize_text_field( $p['occupation'] ?? '' );
+    $interests = isset( $p['interests'] ) ? ( is_array( $p['interests'] ) ? implode( ', ', array_map( 'sanitize_text_field', $p['interests'] ) ) : sanitize_text_field( $p['interests'] ) ) : '';
+    $volunteer = ! empty( $p['volunteer'] ) ? 'Yes' : 'No';
+    if ( ! $name || ! is_email( $email ) || ! $phone || ! $city ) {
+        return new WP_REST_Response( array( 'ok' => false, 'error' => 'missing_fields' ), 400 );
+    }
+    $body = "New BRALIM membership application\n\n" .
+        "Name: $name\nEmail: $email\nPhone: $phone\nCity: $city\nOccupation: $occupation\n" .
+        "Interests: $interests\nInterested in volunteering: $volunteer";
+    wp_mail( get_option( 'admin_email' ), '[BRALIM Membership] ' . $name, $body, array( 'Reply-To: ' . $email ) );
+    return new WP_REST_Response( array( 'ok' => true ), 200 );
+}
+
+function bralim_rest_newsletter( $request ) {
+    $p = $request->get_params();
+    if ( bralim_form_is_spam( $p ) ) {
+        return new WP_REST_Response( array( 'ok' => false ), 200 );
+    }
+    $email = sanitize_email( $p['email'] ?? '' );
+    if ( ! is_email( $email ) ) {
+        return new WP_REST_Response( array( 'ok' => false, 'error' => 'invalid_email' ), 400 );
+    }
+    wp_mail( get_option( 'admin_email' ), '[BRALIM Newsletter] New subscriber', "New newsletter signup: $email" );
+    return new WP_REST_Response( array( 'ok' => true ), 200 );
+}
+
+function bralim_register_form_routes() {
+    register_rest_route( 'bralim/v1', '/contact', array( 'methods' => 'POST', 'callback' => 'bralim_rest_contact', 'permission_callback' => '__return_true' ) );
+    register_rest_route( 'bralim/v1', '/membership', array( 'methods' => 'POST', 'callback' => 'bralim_rest_membership', 'permission_callback' => '__return_true' ) );
+    register_rest_route( 'bralim/v1', '/newsletter', array( 'methods' => 'POST', 'callback' => 'bralim_rest_newsletter', 'permission_callback' => '__return_true' ) );
+}
+add_action( 'rest_api_init', 'bralim_register_form_routes' );
+
 function bralim_nav_menu( $location, $id ) {
     wp_nav_menu( array(
         'theme_location' => $location,
