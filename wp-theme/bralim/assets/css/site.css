@@ -109,9 +109,9 @@ ul { list-style: none; padding: 0; }
 .brand-name { font-family: var(--font-head); font-weight: 800; font-size: 1.35rem; color: var(--green-900); letter-spacing: .5px; }
 .brand-tag { font-size: .68rem; color: var(--muted); letter-spacing: .3px; }
 
-.main-nav .nav-list { display: flex; align-items: center; gap: 4px; }
+.main-nav .nav-list { display: flex; align-items: center; gap: 2px; flex-wrap: nowrap; }
 .nav-list a {
-  display: inline-block; padding: 9px 14px; border-radius: 999px;
+  display: inline-block; padding: 9px 12px; border-radius: 999px; white-space: nowrap;
   color: var(--green-900); font-weight: 500; font-size: .95rem;
 }
 .nav-list a:hover { background: var(--green-050); color: var(--green-800); }
