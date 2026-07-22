@@ -35,6 +35,15 @@ function bralim_register_event_cpt() {
         'supports' => array( 'title', 'editor', 'thumbnail', 'excerpt', 'custom-fields' ),
         'show_in_rest' => true,
     ) );
+
+    register_post_meta( 'event', 'event_date', array(
+        'type' => 'string', 'single' => true, 'show_in_rest' => true,
+        'auth_callback' => function () { return current_user_can( 'edit_posts' ); },
+    ) );
+    register_post_meta( 'event', 'event_location', array(
+        'type' => 'string', 'single' => true, 'show_in_rest' => true,
+        'auth_callback' => function () { return current_user_can( 'edit_posts' ); },
+    ) );
 }
 add_action( 'init', 'bralim_register_event_cpt' );
 
