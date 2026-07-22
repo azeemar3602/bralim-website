@@ -379,6 +379,7 @@ details.acc .acc-body { padding: 0 0 18px; color: var(--muted); }
 @media (max-width: 980px) {
   .hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 66px 0; }
   .hero-visual { max-width: 480px; }
+  .hero-badge { left: 14px; }
   .split { grid-template-columns: 1fr; gap: 32px; }
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
   .stats { grid-template-columns: repeat(2, 1fr); }
